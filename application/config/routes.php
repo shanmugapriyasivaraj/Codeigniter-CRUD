@@ -54,3 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = "Employee_controller/login";
 $route['verify_login']="Employee_controller/verify_login";
+$route['registration'] ='Employee_controller/registration';
+$route['addRegistration'] ='Employee_controller/addRegistration';
+

@@ -16,19 +16,56 @@
         <form method="post">
         <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" class="form-control" name="name" placeholder="Enter Name">
+      <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
     </div> 
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" name="email" placeholder="Enter Email">
+      <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
     </div>
     <div class="form-group">
       <label for="passsword">Password:</label>
-      <input type="text" class="form-control" name="password" placeholder="Enter Password">
+      <input type="text" class="form-control" name="password" id="password" placeholder="Enter Password">
       <br />
-      <input type="button"  name="add" class="btn btn-success" value="Add"/>
+      <input type="button" onclick ="addEmployee()" name="add" class="btn btn-success" value="Add"/>
     </div>
        </form>
     </div>
 </body>
 </html>
+<script>
+  function addEmployee(){
+    // alert("clicked");
+    var name =$('#name').val();
+    var email =$('#email').val();
+    var password =$('#password').val();
+
+    if(email == ""){
+      alert("email field is required");
+    }
+    else if(password==""){
+      alert("password is required");
+    }else{
+      var params ="name="+name+"&email="+email+"&password="+password;
+      // alert(params);
+      $.ajax({
+        type : "POST",
+		   	url  :  '<?php echo base_url();?>'+"addRegistration",	 	          	
+	    	data :params,
+        success: function(data){
+                console.log(data);
+				 var myObj = JSON.parse(data);
+				 var responseStatus = myObj["response_status"];
+				   if(responseStatus == "success"){	 
+                    alert("Register successfully");
+					  
+				   }else{
+					  alert("please try again");
+				   }
+				   
+			}
+        
+      })
+
+    }
+  }
+</script>
