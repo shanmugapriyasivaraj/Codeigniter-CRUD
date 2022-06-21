@@ -35,19 +35,19 @@ $.ajax({
 			url  :  '<?php echo base_url();?>'+"update_new_password",	 	          	
 			data :params,
 
-			// success: function(data){
-            //     console.log(data);
-			// 	 var myObj = JSON.parse(data);
-			// 	 var responseStatus = myObj["response_status"];
-			// 	 var message = myObj["message"];
-			// 	   if(responseStatus == "success"){	 
-            //         alert("logged in successfully");
+			success: function(data){
+                console.log(data);
+				 var myObj = JSON.parse(data);
+				 var responseStatus = myObj["response_status"];
+				 var message = myObj["message"];
+				   if(responseStatus == "success"){	 
+                    alert(message);
 					  
-			// 	   }else{
-			// 		  alert(message);
-			// 	   }
+				   }else{
+					  alert(message);
+				   }
 				   
-			// } 
+			} 
 	  
 	  });
     }

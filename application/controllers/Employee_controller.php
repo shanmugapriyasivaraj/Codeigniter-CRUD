@@ -71,6 +71,14 @@ public function new_password(){
 		"employee_id" =>$employee_id
 	  );
 	  $update_new_password=$this->CrudModel->update('employee',$data,$where);
+	  if($update_new_password == false){
+		$responseArray["message"]="failed to update password";
+	  }else{
+		$responseArray["message"]="password updated successfully";
+		$responseArray["response_status"]="success";
+
+	  }
+	  echo json_encode($responseArray);
 }
 
 
