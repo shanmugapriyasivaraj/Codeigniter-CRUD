@@ -60,8 +60,7 @@
 					  
 				   }else{
 					  alert("please try again");
-				   }
-				   
+				   }  
 			}
         
       })

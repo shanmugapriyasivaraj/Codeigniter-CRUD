@@ -17,6 +17,66 @@ public function registration(){
 	$this->load->view('registration');
 
 }
+public function newPassword(){
+	$this->load->view('newPassword');
+}
+public function forgetPassword(){
+	// print_r($_POST);
+	$responseArray = array();
+	$responseArray["response_status"]="failed";
+
+
+	$email =  $this->input->post("email");
+	$where = array(
+		"employee_email"=>$email,
+	  ); 
+	   $isEmailExist=$this->CrudModel->get('employee',$where);
+	//    print_r($isEmailExist);
+
+	   if($isEmailExist == false){
+
+		$responseArray["message"]="Email id not found";
+		
+	   }else{
+				$responseArray["message"]="Enter New password";
+				$responseArray["response_status"]="success";
+				//set session data of employee_id
+				foreach($isEmailExist as $isEmailExist){
+					$employee_id = $isEmailExist['employee_id'];
+					// print_r($employee_id);
+				$this->session->set_userdata("employee_id",$employee_id);
+			// $check=	$this->session->userdata("employee_id");
+			// echo ($check);
+			// exit();
+				}
+
+			}
+		
+	   
+	   echo json_encode($responseArray);
+	}
+public function new_password(){
+	// print_r($_POST);
+	$responseArray = array();
+	$responseArray["response_status"]="failed";
+
+	$new_Password =  $this->input->post("new_Password");
+
+	$data = array(
+	
+		"employee_password" =>$new_Password
+	  ); 
+	  $employee_id=	$this->session->userdata("employee_id");
+	  $where = array(
+		"employee_id" =>$employee_id
+	  );
+	  $update_new_password=$this->CrudModel->update('employee',$data,$where);
+}
+
+
+public function forget_password(){
+	$this->load->view('forget_password');
+}
 public function addRegistration(){
 //   print_r($_POST);
 	$responseArray = array();
@@ -46,7 +106,7 @@ public function verify_login(){
   $email =  $this->input->post("emailId");  
   $password =  $this->input->post("password"); 
   $where = array(
-	"employee_email"=>$email,
+	"employee_email"=>$email
   ); 
    $isEmailExist=$this->CrudModel->get('employee',$where);
    //print_r($isEmailExist);
@@ -57,7 +117,7 @@ public function verify_login(){
    } else{
 	foreach($isEmailExist as $isEmailExist){
 		if($password == $isEmailExist['employee_password']){
-			$responseArray["response_status"]="success";
+    			$responseArray["response_status"]="success";
 			$responseArray["message"]="Logged in successfully";
 		}
 		else{

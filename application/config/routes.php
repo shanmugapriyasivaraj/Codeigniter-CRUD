@@ -56,4 +56,8 @@ $route['login'] = "Employee_controller/login";
 $route['verify_login']="Employee_controller/verify_login";
 $route['registration'] ='Employee_controller/registration';
 $route['addRegistration'] ='Employee_controller/addRegistration';
+$route['forget_password'] ='Employee_controller/forget_password';
+$route['forgetPassword'] ='Employee_controller/forgetPassword';
+$route['newPassword']='Employee_controller/newPassword';
+$route['update_new_password']='Employee_controller/new_password';
 
