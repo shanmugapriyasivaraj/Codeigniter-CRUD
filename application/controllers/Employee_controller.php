@@ -157,5 +157,34 @@ public function verify_login(){
    }
    echo json_encode($responseArray);
 }
+public function update_details(){
+	// print_r($_POST);
+
+	$responseArray = array();
+	$responseArray["response_status"]="failed";
+
+	$employee_id=$this->input->post("employee_id");
+    $name = $this->input->post("name");
+    $email = $this->input->post("email");
+
+$data = array(
+	"employee_name" => $name,
+	"employee_email"=>$email
+);
+$where = array(
+	"employee_id"=>$employee_id);
+  $update_details=$this->CrudModel->update('employee',$data,$where);
+//   print_r($update_details);
+  if($update_details == false){
+	$responseArray["message"]="failed to update ";
+  }else{
+	$responseArray["message"]=" updated successfully";
+	$responseArray["response_status"]="success";
+
+  }
+  echo json_encode($responseArray);
 }
+
+}
+
 ?>

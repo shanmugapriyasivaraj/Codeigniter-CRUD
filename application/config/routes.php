@@ -63,4 +63,6 @@ $route['update_new_password']='Employee_controller/new_password';
 $route['employee_update']="Employee_controller/employee_update";
 $route['home']="Employee_controller/home";
 $route['edit/(:any)']="Employee_controller/edit/$1";
-$route['show_Edit']="Employee_controller/show_edit";
+// $route['editDetails'] ="Employee_controller/editDetails";
+$route['update_details']="Employee_controller/update_details";
+
