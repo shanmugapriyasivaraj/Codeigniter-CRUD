@@ -6,6 +6,7 @@ class Employee_controller extends CI_Controller {
         $this->load->helper(array('form', 'url'));	
 		$this->load->library('form_validation');
 		$this->load->model('CrudModel');
+		$this->load->model('Crud_model');
 		// $this->load->model('DatatableModel');
 		// $this->load->model('UploadFileModel');
 	}
@@ -17,6 +18,7 @@ public function registration(){
 	$this->load->view('registration');
 
 }
+
 public function newPassword(){
 	$this->load->view('newPassword');
 }
@@ -81,6 +83,26 @@ public function new_password(){
 	  echo json_encode($responseArray);
 }
 
+public function employee_update(){
+	$this->load->view('employee_update');
+}
+public function home(){
+	$data['result'] = $this->Crud_model->getAllData();
+		$this->load->view('home', $data);
+}
+public function edit($employee_id){
+	
+$where = array(
+	"employee_id"=>$employee_id
+);
+
+	$getEmployeeDetails=$this->CrudModel->get('employee',$where);
+	// print_r($getEmployeeDetails);
+	$data = array(
+		"employeeDetails"=>	$getEmployeeDetails);
+	$this->load->view('employee_update',$data);
+
+}
 
 public function forget_password(){
 	$this->load->view('forget_password');

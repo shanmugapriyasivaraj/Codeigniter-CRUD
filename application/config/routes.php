@@ -60,4 +60,7 @@ $route['forget_password'] ='Employee_controller/forget_password';
 $route['forgetPassword'] ='Employee_controller/forgetPassword';
 $route['newPassword']='Employee_controller/newPassword';
 $route['update_new_password']='Employee_controller/new_password';
-
+$route['employee_update']="Employee_controller/employee_update";
+$route['home']="Employee_controller/home";
+$route['edit/(:any)']="Employee_controller/edit/$1";
+$route['show_Edit']="Employee_controller/show_edit";
