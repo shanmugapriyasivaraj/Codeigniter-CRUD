@@ -178,7 +178,7 @@ $where = array(
   if($update_details == false){
 	$responseArray["message"]="failed to update ";
   }else{
-	$responseArray["message"]=" updated successfully";
+	$responseArray["message"]="updated successfully";
 	$responseArray["response_status"]="success";
 
   }

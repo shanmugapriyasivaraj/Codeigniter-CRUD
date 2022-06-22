@@ -58,7 +58,7 @@
 				 var responseStatus = myObj["response_status"];
 				 var message = myObj["message"];
 				   if(responseStatus == "success"){	 
-                   
+                    window.location.href = "<?php echo base_url(); ?>home";
                     alert(message);
 					  
 				   }else{
