@@ -65,4 +65,4 @@ $route['home']="Employee_controller/home";
 $route['edit/(:any)']="Employee_controller/edit/$1";
 // $route['editDetails'] ="Employee_controller/editDetails";
 $route['update_details']="Employee_controller/update_details";
-
+$route['deleteEmployee/(:any)']="Employee_controller/deleteEmployee/$1";

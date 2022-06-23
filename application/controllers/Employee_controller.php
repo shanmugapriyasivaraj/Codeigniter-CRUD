@@ -184,6 +184,14 @@ $where = array(
   }
   echo json_encode($responseArray);
 }
+public function deleteEmployee($employee_id){
+	$where = array(
+		"employee_id"=>$employee_id
+	);
+	$deleteEmployee= $this->CrudModel->delete('employee',$where);
+	// print_r($deleteEmployee);
+	redirect('home');
+}
 
 }
 

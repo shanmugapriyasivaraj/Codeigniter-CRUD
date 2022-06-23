@@ -32,7 +32,7 @@
                 <td><?php echo $row->employee_name; ?></td>
                 <td><?php echo $row->employee_email; ?></td>
               <td><a href="<?php echo base_url(); ?>edit/<?php echo $row->employee_id; ?>" >Edit</a></td>
-              <td><a>Delete</a></td>
+              <td><a href="<?php echo base_url(); ?>deleteEmployee/<?php echo $row->employee_id; ?>" >Delete</a></td>
                 </tr>
                 <?php } ?>
     </tbody>
