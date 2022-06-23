@@ -27,7 +27,7 @@
     <input type="password" class="form-control" id="password" name="password">
   </div>
   <button type="button" onclick="verify_login()" class="btn btn-primary">Login</button>
-  <a href="forget_password">Forget Password</a>
+  <a href="<?php echo base_url();?>forget_password">Forget Password</a>
 </form>
 </body>
 </html>

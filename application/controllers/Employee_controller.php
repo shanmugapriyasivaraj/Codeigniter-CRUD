@@ -87,8 +87,18 @@ public function employee_update(){
 	$this->load->view('employee_update');
 }
 public function home(){
-	$data['result'] = $this->Crud_model->getAllData();
+	$where = array(
+		"deleted" =>'0'
+	);
+	$data['result'] = $this->CrudModel->get('employee',$where);
+	// print_r($data['result']);
+	// exit();
 		$this->load->view('home', $data);
+}
+public function firstPage(){
+	$this->load->view('inc/header');
+	$this->load->view('firstPage');
+	$this->load->view('inc/footer');
 }
 public function edit($employee_id){
 	
@@ -127,19 +137,37 @@ public function addRegistration(){
 	   echo json_encode($responseArray);
 	   
 }
+public function single_employee(){
+	$logged_id = $this->session->userdata("loggedin_emp_id");
+	// print_r($data);
+	$where = array(
+		"employee_id"=>$logged_id
+	);
+	$view_details = $this->CrudModel->get('employee',$where);
+		
+
+		$data= array(
+			"view_employee_details"=>$view_details
+		);
+		$this->load->view('single_employee',$data);
+
+		
+}
 public function verify_login(){
 	$responseArray = array();
 	$responseArray["response_status"]="failed";
+
 
 	
     //print_r($_POST);
   $email =  $this->input->post("emailId");  
   $password =  $this->input->post("password"); 
+  
   $where = array(
 	"employee_email"=>$email
   ); 
    $isEmailExist=$this->CrudModel->get('employee',$where);
-   //print_r($isEmailExist);
+//    print_r($isEmailExist);
    if($isEmailExist == false){
 
 	$responseArray["message"]="Email id not found";
@@ -149,6 +177,15 @@ public function verify_login(){
 		if($password == $isEmailExist['employee_password']){
     			$responseArray["response_status"]="success";
 			$responseArray["message"]="Logged in successfully";
+			
+			
+
+			$employee_id = $isEmailExist['employee_id'] ;
+			// print_r($employee_id);
+			$this->session->set_userdata("loggedin_emp_id",$employee_id);
+		
+			// print_r($data);
+		
 		}
 		else{
 			$responseArray["message"]="password not correct";
@@ -185,14 +222,21 @@ $where = array(
   echo json_encode($responseArray);
 }
 public function deleteEmployee($employee_id){
+	
 	$where = array(
 		"employee_id"=>$employee_id
 	);
-	$deleteEmployee= $this->CrudModel->delete('employee',$where);
+	$data = array(
+		"deleted" =>'1'
+	);
+	$deleteEmployee= $this->CrudModel->update('employee',$data,$where);
 	// print_r($deleteEmployee);
 	redirect('home');
 }
 
+
 }
+
+
 
 ?>
