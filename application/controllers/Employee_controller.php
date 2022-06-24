@@ -2,6 +2,7 @@
 class Employee_controller extends CI_Controller {
 	public function __construct(){	
 		parent::__construct(); 
+		$this->load->library('upload');
 		$this->load->library('session');	
         $this->load->helper(array('form', 'url'));	
 		$this->load->library('form_validation');
@@ -10,7 +11,15 @@ class Employee_controller extends CI_Controller {
 		// $this->load->model('DatatableModel');
 		// $this->load->model('UploadFileModel');
 	}
-
+	public function do_upload(){
+		$config = array(
+		'upload_path' => "./uploads/",
+		'allowed_types' => "gif|jpg|png|jpeg|pdf",
+		'overwrite' => TRUE,
+		'max_size' => "2048000", 
+		'max_height' => "768",
+		'max_width' => "1024"
+		);
 public function login(){
     $this->load->view('employee_login');
 }

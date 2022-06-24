@@ -24,25 +24,25 @@
        <?php } ?>
        <br/>
            <br/>
-           <a href="<?php echo base_url(); ?>edit/" class="btn btn-primary">Edit Details</a>
+           <button onclick="update_btn()" class="btn btn-primary">Update</button>
         </center>
 </body>
 </html>
-<!-- <script>
-    function editDetails2(){
+<script>
+    function update_btn(){
         // alert("clicked");
-        var name = $("#name").val();
-        var email =$("#email").val();
+        var name =$("#name").val();
+        var email = $("#email").val();
         var employee_id =$("#employee_id").val();
-        
-        if(name ==""){
-              alert("name is required");
-        }else if(email==""){
-        alert("email is required");
+
+        if(name  == ""){
+            alert("name field is required");
+        }else if(email ==""){
+            alert("email field is required");
         }else{
             var params =  "name="+name+"&email="+email+"&employee_id="+employee_id;
-    // alert(params);
-        $.ajax({
+            alert(params);
+            $.ajax({
 			type : "POST",
 			url  :  '<?php echo base_url();?>'+"update_details",	 	          	
 			data :params,
@@ -52,7 +52,7 @@
 				 var responseStatus = myObj["response_status"];
 				 var message = myObj["message"];
 				   if(responseStatus == "success"){	 
-                    window.location.href = "<?php echo base_url(); ?>edit";
+                    
                     alert(message);
 					  
 				   }else{
@@ -62,6 +62,7 @@
 			} 
         
         });
-   } 
-   }
-</script> -->
+        }
+
+    }
+</script>
