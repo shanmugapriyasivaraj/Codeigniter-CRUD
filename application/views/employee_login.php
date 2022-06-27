@@ -49,7 +49,7 @@
         $.ajax({
 			type : "POST",
 			url  :  '<?php echo base_url();?>'+"verify_login",	 	          	
-			data :params,
+			data : params,
 			success: function(data){
                 console.log(data);
 				 var myObj = JSON.parse(data);

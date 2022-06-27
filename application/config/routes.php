@@ -68,3 +68,5 @@ $route['update_details']="Employee_controller/update_details";
 $route['deleteEmployee/(:any)']="Employee_controller/deleteEmployee/$1";
 $route['firstPage']="Employee_controller/firstPage";
 $route['single_employee']="Employee_controller/single_employee";
+$route['image'] = "Employee_controller/image";
+$route['uploading_file']="Employee_controller/uploading_file";

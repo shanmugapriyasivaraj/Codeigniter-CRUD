@@ -11,15 +11,7 @@ class Employee_controller extends CI_Controller {
 		// $this->load->model('DatatableModel');
 		// $this->load->model('UploadFileModel');
 	}
-	public function do_upload(){
-		$config = array(
-		'upload_path' => "./uploads/",
-		'allowed_types' => "gif|jpg|png|jpeg|pdf",
-		'overwrite' => TRUE,
-		'max_size' => "2048000", 
-		'max_height' => "768",
-		'max_width' => "1024"
-		);
+
 public function login(){
     $this->load->view('employee_login');
 }
@@ -27,7 +19,37 @@ public function registration(){
 	$this->load->view('registration');
 
 }
+public function image(){
+	$this->load->view('image');
+}
+function uploading_file(){
+	if(isset($_FILES["img"]["name"])){
+		$config['upload_path']='./assets/uploads/';
+		// print_r($config['upload_path']);
+		// exit();
+		$config['allowed_types']='*';
 
+		$this->upload->initialize($config);
+		if(!$this->upload->do_upload("img")){
+			echo $this->upload->display_errors();
+		}else{
+			$data = array('img_upload' => $this->upload->data());
+ 
+			//  print_r($data);
+			//  exit();
+			 $image= $data['img_upload']['file_name']; 
+			 $img_data = array(
+			 
+			   "image"=>$image
+			 );
+			 $result= $this->CrudModel->insert('image',$img_data);
+			  
+			 echo '<img src="'.base_url().'assets/uploads/'.$image.'" width="300" height="225" class="img-thumbnail" />';  
+			 }  
+				}  
+				
+	
+}
 public function newPassword(){
 	$this->load->view('newPassword');
 }
@@ -218,7 +240,7 @@ $data = array(
 	"employee_email"=>$email
 );
 $where = array(
-	"employee_id"=>$employee_id);
+	"employee_id"=>$employe_id);
   $update_details=$this->CrudModel->update('employee',$data,$where);
 //   print_r($update_details);
   if($update_details == false){
