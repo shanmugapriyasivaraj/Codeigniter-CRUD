@@ -4,9 +4,12 @@ class Employee_controller extends CI_Controller {
 		parent::__construct(); 
 		$this->load->library('upload');
 		$this->load->library('session');	
-        $this->load->helper(array('form', 'url'));	
+
+                $this->load->helper(array('form', 'url','sendemail','emailcontent'));	
 		$this->load->library('form_validation');
 		$this->load->model('CrudModel');
+
+		
 		$this->load->model('Crud_model');
 		// $this->load->model('DatatableModel');
 		// $this->load->model('UploadFileModel');
@@ -97,6 +100,8 @@ public function new_password(){
 
 	$data = array(
 	
+
+
 		"employee_password" =>$new_Password
 	  ); 
 	  $employee_id=	$this->session->userdata("employee_id");
@@ -163,13 +168,47 @@ public function addRegistration(){
 		"employee_password" =>$password
 	  ); 
 	   $addEmployee=$this->CrudModel->insert('employee',$data);
-	   $responseArray["response_status"]="success";
+	   if($addEmployee != false){
+          $from_mail = "a@gmail.com";
+          $to_mail = "s@gmail.com";
+		  $subject =  "Registration Success Message";
+		  
+			$moduleFrom = "REGISTRATION SUCCESS-NOTIFICATION";
+			$dataArray = array();
+			$dataArray["userEmail"] =$email ;
+			$dataArray["userPassword"] =$password ;
+		    $dataArray["userName"] =$name;
+			// print_r($dataArray);
+	        // exit;
+			$emailContentDataArray = array();
+			$emailContentDataArray["dataArray"] = $dataArray;
+			
+			$message="";
+			$message = getEmailContentForRegistrationSuccess($emailContentDataArray);
+			echo $message;
+			exit;
+			$mailDataArray = array();
+			$mailDataArray["toId"] = $to_mail;
+			$mailDataArray["subject"] = $subject;
+			$mailDataArray["message"] = $message;
+			$mailDataArray["fromId"] = $from_mail;
+			$mailDataArray["cc"] = "";
+			$mailDataArray["cc2"] = "";
+			
+			//SEND EMAIL TO CUSTOMER
+			$sentEmailResponseStatusObj = sendEmail($mailDataArray);	
+			$responseArray["response_status"]="success";
+	   }
+	   
 
 	   echo json_encode($responseArray);
 	   
 }
 public function single_employee(){
-	$logged_id = $this->session->userdata("loggedin_emp_id");
+	
+	
+
+
 	// print_r($data);
 	$where = array(
 		"employee_id"=>$logged_id
@@ -240,7 +279,7 @@ $data = array(
 	"employee_email"=>$email
 );
 $where = array(
-	"employee_id"=>$employe_id);
+	"employee_id"=>$employee_id);
   $update_details=$this->CrudModel->update('employee',$data,$where);
 //   print_r($update_details);
   if($update_details == false){
