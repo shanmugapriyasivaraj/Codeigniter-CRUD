@@ -199,17 +199,10 @@ public function addRegistration(){
 			$sentEmailResponseStatusObj = sendEmail($mailDataArray);	
 			$responseArray["response_status"]="success";
 	   }
-	   
-
-	   echo json_encode($responseArray);
-	   
+  echo json_encode($responseArray);
 }
 public function single_employee(){
-	
-	
-
-
-	// print_r($data);
+// print_r($data);
 	$where = array(
 		"employee_id"=>$logged_id
 	);
