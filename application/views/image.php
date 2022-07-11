@@ -10,36 +10,56 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <center>
-    <form method="post" id="upload_image">
+    <!-- <center>
+    <form method="post" id="upload_image" enctype="multipart/form-data">
 <h1>Upload File</h1>
-<input type="file" name="img"/>
+<input type="file" name="img" multiple="multiple"/>
 <br />
-<img src="<?php echo base_url(); ?>assets\uploads\job board business model.jpg" />
+<img src="<?php //echo base_url(); ?>assets\uploads\job board business model.jpg" />
 <button class="btn btn-success" type="submit">Upload</button>
     </form>
-    </center>
-    
-</body>
+    </center> -->
+    <form enctype="multipart/form-data" method="post">
+    <input name="files[]" type="file" multiple="multiple" />
+ 
+    <input type="button" value="Upload" id="upload"/>
+</form>
 </html>
 <script >
-    $(document).ready(function(){
-        $('#upload_image').submit(function(e){
-            alert("clicked");
+    // $(document).ready(function(){
+    //     $('#upload_image').submit(function(e){
+    //         alert("clicked");
          
-            e.preventDefault(); 
-			 $.ajax({
-				url:'uploading_file',
-				type:"post",
-				data:new FormData(this),
-				processData:false,
-				contentType:false,
-				cache:false,
-				async:false,
-				success: function(data){
-					$('#').html(data); 
-				}
-			});
-        });
+    //         e.preventDefault(); 
+	// 		 $.ajax({
+	// 			url:'uploading_file',
+	// 			type:"post",
+	// 			data:new FormData(this),
+	// 			processData:false,
+	// 			contentType:false,
+	// 			cache:false,
+	// 			async:false,
+	// 			success: function(data){
+	// 				$('#').html(data); 
+	// 			}
+	// 		});
+    //     });
+    // });
+    $('#upload').click(function(e) {
+    e.preventDefault();
+    var formData = new FormData($(this).parents('form')[0]);
+    $.ajax({
+        url: "<?php echo base_url() ?>uploading_file",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+
+        },
+        error: function(response) {
+
+        }
     });
+});
 </script>

@@ -25,34 +25,39 @@ public function registration(){
 public function image(){
 	$this->load->view('image');
 }
-function uploading_file(){
-	if(isset($_FILES["img"]["name"])){
-		$config['upload_path']='./assets/uploads/';
-		// print_r($config['upload_path']);
-		// exit();
-		$config['allowed_types']='*';
+public function uploading_file(){
+	// if(isset($_FILES["img"]["name"])){
+	// 	$config['upload_path']='./assets/uploads/';
+	// 	// print_r($config['upload_path']);
+	// 	// exit();
+	// 	$config['allowed_types']='*';
 
-		$this->upload->initialize($config);
-		if(!$this->upload->do_upload("img")){
-			echo $this->upload->display_errors();
-		}else{
-			$data = array('img_upload' => $this->upload->data());
+	// 	$this->upload->initialize($config);
+	// 	if(!$this->upload->do_upload("img")){
+	// 		echo $this->upload->display_errors();
+	// 	}else{
+	// 		$data = array('img_upload' => $this->upload->data());
  
-			//  print_r($data);
-			//  exit();
-			 $image= $data['img_upload']['file_name']; 
-			 $img_data = array(
+	// 		//  print_r($data);
+	// 		//  exit();
+	// 		 $image= $data['img_upload']['file_name']; 
+	// 		 $img_data = array(
 			 
-			   "image"=>$image
-			 );
-			 $result= $this->CrudModel->insert('image',$img_data);
+	// 		   "image"=>$image
+	// 		 );
+	// 		 $result= $this->CrudModel->insert('image',$img_data);
 			  
-			 echo '<img src="'.base_url().'assets/uploads/'.$image.'" width="300" height="225" class="img-thumbnail" />';  
-			 }  
-				}  
-				
+	// 		 echo '<img src="'.base_url().'assets/uploads/'.$image.'" width="300" height="225" class="img-thumbnail" />';  
+	// 		 }  
+	// 			}  
 	
+
 }
+
+ 
+
+
+
 public function newPassword(){
 	$this->load->view('newPassword');
 }
