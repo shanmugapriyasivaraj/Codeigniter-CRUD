@@ -51,8 +51,79 @@ public function uploading_file(){
 	// 		 }  
 	// 			}  
 	
+		$response_array=array();
+		$response_array['response_status']="failed";
+		$response_array['message']="Something went worng Please try again!";
+	
+		  
+		  
+		    $config['upload_path'] = 'assets/uploads';
+			$config['allowed_types'] = '*';
+			$this->load->library('upload', $config);
+			if(!$this->upload->do_upload("images"))
+			{
+				
+			   $error = $this->upload->display_errors();
+			   echo $error;
+			}
+			else
+			{
+			   $data = array('upload_data' => $this->upload->data());
+			   $image1= $data['upload_data']['file_name'];
+			   $data = array(
+						   'image' =>$image1,
+						   );
+			   $uploadImageToDb = $this->CrudModel->insert('image',$data);
+			   
+			   return $image1;
+			} 
+		  
+		  
+		   if(!empty($_FILES['images']['name'][0])){
+			   //print_r($_FILES['images']['name'][0]);
+			   $n=0;
+			   $s=0;
+			   $prepareNames   =   array();
+			   foreach($_FILES['images']['name'] as $val)
+			   {
+				   $infoExt        =   getimagesize($_FILES['images']['tmp_name'][$n]);
+				   $s++;
+				   $filesName      =   str_replace(" ","",trim($_FILES['images']['name'][$n]));
+				   $files          =   explode(".",$filesName);
+				   $File_Ext       =   substr($_FILES['images']['name'][$n], strrpos($_FILES['images']['name'][$n],'.'));
+				   if($infoExt['mime'] == 'image/gif' || $infoExt['mime'] == 'image/jpeg' || $infoExt['mime'] == 'image/png')
+				   {
+					   $srcPath    =   "assets/uploads/";
+					   $fileName   =   $s.rand(0,999).time().$File_Ext;
+					   $path   =   trim($srcPath.$fileName);
+					   $data = array(
+						   'image' =>$fileName,
+						   );
+					   $uploadImageToDb = $this->CrudModel->insert('image',$data);
+					   if(move_uploaded_file($_FILES['images']['tmp_name'][$n], $path))
+					   {
+						   $prepareNames[] .=  $fileName; //need to be fixed.
+						   $Sflag      =   1; // success
+					   }else{
+						   $Sflag  = 2; // file not move to the destination
+					   }
+				   }
+				   else
+				   {
+					   $Sflag  = 3; //extention not valid
+				   }
+				   $n++;
+			   }
+		   }
+		   $response_array['response_status']="success";
+		   $response_array['message']="Package added successfully";
+		   echo json_encode($response_array);
+	   }
+	   
+	   
+   
 
-}
+
 
  
 
