@@ -26,6 +26,8 @@ public function image(){
 	$this->load->view('image');
 }
 public function uploading_file(){
+//  single image upload
+
 	// if(isset($_FILES["img"]["name"])){
 	// 	$config['upload_path']='./assets/uploads/';
 	// 	// print_r($config['upload_path']);
@@ -49,7 +51,9 @@ public function uploading_file(){
 			  
 	// 		 echo '<img src="'.base_url().'assets/uploads/'.$image.'" width="300" height="225" class="img-thumbnail" />';  
 	// 		 }  
-	// 			}  
+	// 			} 
+	
+	// Multiple file upload
 	
 		$response_array=array();
 		$response_array['response_status']="failed";
@@ -57,26 +61,26 @@ public function uploading_file(){
 	
 		  
 		  
-		    $config['upload_path'] = 'assets/uploads';
-			$config['allowed_types'] = '*';
-			$this->load->library('upload', $config);
-			if(!$this->upload->do_upload("images"))
-			{
+		    // $config['upload_path'] = 'assets/uploads';
+			// $config['allowed_types'] = '*';
+			// $this->load->library('upload', $config);
+			// if(!$this->upload->do_upload("images")) //file name
+			// {
 				
-			   $error = $this->upload->display_errors();
-			   echo $error;
-			}
-			else
-			{
-			   $data = array('upload_data' => $this->upload->data());
-			   $image1= $data['upload_data']['file_name'];
-			   $data = array(
-						   'image' =>$image1,
-						   );
-			   $uploadImageToDb = $this->CrudModel->insert('image',$data);
+			//    $error = $this->upload->display_errors();
+			//    echo $error;
+			// }
+			// else
+			// {
+			//    $data = array('upload_data' => $this->upload->data());   
+			//    $image1= $data['upload_data']['file_name'];
+			//    $data = array(
+			// 			   'image' =>$image1
+			// 			   );
+			//    $uploadImageToDb = $this->CrudModel->insert('image',$data);
 			   
-			   return $image1;
-			} 
+			// //    return $image1;
+			// } 
 		  
 		  
 		   if(!empty($_FILES['images']['name'][0])){
@@ -116,18 +120,10 @@ public function uploading_file(){
 			   }
 		   }
 		   $response_array['response_status']="success";
-		   $response_array['message']="Package added successfully";
+		   $response_array['message']="Image added successfully";
 		   echo json_encode($response_array);
 	   }
-	   
-	   
-   
-
-
-
- 
-
-
+	
 
 public function newPassword(){
 	$this->load->view('newPassword');
@@ -163,8 +159,7 @@ public function forgetPassword(){
 				}
 
 			}
-		
-	   
+  
 	   echo json_encode($responseArray);
 	}
 public function new_password(){
@@ -175,9 +170,6 @@ public function new_password(){
 	$new_Password =  $this->input->post("new_Password");
 
 	$data = array(
-	
-
-
 		"employee_password" =>$new_Password
 	  ); 
 	  $employee_id=	$this->session->userdata("employee_id");
